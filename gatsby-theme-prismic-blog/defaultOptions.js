@@ -1,3 +1,3 @@
 module.exports = (themeOptions) => ({
-  basePath: themeOptions.basePath || `/`
+  basePath: themeOptions.basePath || '/'
 });

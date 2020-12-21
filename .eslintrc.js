@@ -1,4 +1,5 @@
 module.exports = {
+  parser: 'babel-eslint',
   extends: ['airbnb', 'plugin:prettier/recommended'],
   plugins: ['prettier', 'react-hooks'],
   parserOptions: {
@@ -14,6 +15,7 @@ module.exports = {
     node: true
   },
   rules: {
+    camelcase: 0,
     'arrow-body-style': [2, 'as-needed'],
     'no-param-reassign': [
       2,

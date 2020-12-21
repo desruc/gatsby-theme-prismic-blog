@@ -1,12 +1,30 @@
 module.exports = (themeOptions) => ({
   plugins: [
-    `gatsby-plugin-react-helmet`,
+    'gatsby-plugin-styled-components',
+    'gatsby-plugin-react-helmet',
     {
-      resolve: `gatsby-source-prismic`,
+      resolve: 'gatsby-plugin-prefetch-google-fonts',
+      options: {
+        fonts: [
+          {
+            family: 'Montserrat',
+            variants: ['300', '400', '700']
+          },
+          {
+            family: 'Open Sans',
+            variants: ['400', '700']
+          }
+        ]
+      }
+    },
+    {
+      resolve: 'gatsby-source-prismic',
+      /* eslint-disable global-require */
       options: {
         repositoryName: themeOptions.prismicRepository,
         schemas: {
-          homepage: require('./src/schemas/homepage.json')
+          homepage: require('./src/schemas/homepage.json'),
+          post: require('./src/schemas/post.json')
         }
       }
     }
