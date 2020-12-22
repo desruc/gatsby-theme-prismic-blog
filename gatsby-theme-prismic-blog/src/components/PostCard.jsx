@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { animated, useSpring } from 'react-spring';
 
 import { Link } from 'gatsby';
 import GatsbyImage from 'gatsby-image';
@@ -9,7 +10,7 @@ const StyledLink = styled(Link)`
   color: ${(props) => props.theme.colors.darkText};
 `;
 
-const Card = styled.div(
+const Card = styled(animated.div)(
   ({ theme }) => `
   cursor: pointer;
   border-radius: ${theme.borderRadius};
@@ -40,9 +41,21 @@ const PostCard = ({ post }) => {
     data: { header_image, post_title, post_description }
   } = post;
 
+  const [hover, setHover] = useState(false);
+  const onMouseEnter = () => setHover(true);
+  const onMouseLeave = () => setHover(false);
+
+  const animatedStyle = useSpring({
+    transform: hover ? 'scale(1.02)' : 'scale(1)'
+  });
+
   return (
     <StyledLink to={`/blog/${uid}`}>
-      <Card>
+      <Card
+        style={animatedStyle}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
         <GatsbyImage fluid={header_image?.fluid} />
         <CardBody>
           {post_title?.text && <Title>{post_title?.text}</Title>}
