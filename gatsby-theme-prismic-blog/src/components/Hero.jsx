@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { rgba } from 'polished';
 
@@ -11,9 +12,13 @@ const Wrap = styled.div`
   width: 100%;
 `;
 
-const Inner = styled.div(({ theme: { colors } }) => {
+const Inner = styled.div(({ theme: { colors }, fade }) => {
   const { background: bg } = colors;
   const shade = rgba(bg, 0.4);
+
+  const fadeBg = `background: linear-gradient(to bottom, ${shade} 0%, ${bg} 100%),
+  linear-gradient(135deg, ${shade} 40%, ${bg} 100%),
+  linear-gradient(-135deg, ${shade} 40%, ${bg} 100%)`;
 
   return `
     height: 500px;
@@ -35,27 +40,46 @@ const Inner = styled.div(({ theme: { colors } }) => {
       width: 100%;
       height: 100%;
       backface-visibility: hidden;
-      background: linear-gradient(to bottom, ${shade} 0%, ${bg} 100%),
-      linear-gradient(135deg, ${shade} 40%, ${bg} 100%),
-      linear-gradient(-135deg, ${shade} 40%, ${bg} 100%)
+      ${fade && fadeBg}
     }
   `;
 });
 
 const ChildrenWrap = styled.div`
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
+  height: 100%;
+  width: 100%;
   z-index: 1;
 `;
 
-const Hero = ({ image, children }) => (
+const Relative = styled.div`
+  position: relative;
+  height: 100%;
+`;
+
+const Hero = ({ image, fade, children }) => (
   <Wrap>
-    <Inner>
+    <Inner fade={fade}>
       <GatsbyImage fluid={image} />
-      {children && <ChildrenWrap>{children}</ChildrenWrap>}
+      {children && (
+        <ChildrenWrap>
+          <Relative>{children}</Relative>
+        </ChildrenWrap>
+      )}
     </Inner>
   </Wrap>
 );
+
+Hero.propTypes = {
+  fade: PropTypes.bool,
+  children: PropTypes.node
+};
+
+Hero.defaultProps = {
+  fade: false,
+  children: null
+};
 
 export default Hero;
