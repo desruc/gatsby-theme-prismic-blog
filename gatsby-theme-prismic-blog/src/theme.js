@@ -1,13 +1,13 @@
 const theme = {
   colors: {
-    background: '#0f0e17',
-    heading: '#fffffe',
-    darkHeading: '#0f0e17',
-    text: '#a7a9be',
-    darkText: '#2e2f3e',
-    primary: '#ff8906',
-    secondary: '#f25f4c',
-    tertiary: '#e53170',
+    background: '#fffffe',
+    heading: '#094067',
+    darkHeading: '#fffffe',
+    text: '#5f6c7b',
+    darkText: '#d8eefe',
+    primary: '#3da9fc',
+    secondary: '#90b4ce',
+    tertiary: '#ef4565',
     white: '#ffffff'
   },
   boxShadow:
